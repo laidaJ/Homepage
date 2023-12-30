@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesen's homepage</title>
+  <style>
+    body {
+      background: url(./images/1_background.jpg) no-repeat top center/cover;
+      font-family: -apple-system, BlinkMacSystemFont, "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    button {
+      background: none;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .clock {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1050%;
+      color: #fff;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="clock">
+  </div>
+  <button>更换背景图片</button>
+</body>
+<script>
+  //获取随机背景
+  const random = (M, N) => {
+    return Math.floor(Math.random() * (N - M + 1) + M)
+  }
+  let randomNumber = random(1, 10)
+  document.body.style.backgroundImage = `url(./images/${randomNumber}_background.jpg)`
+  const backgroundBtn = document.querySelector('button');
+  backgroundBtn.addEventListener('click', () => {
+    randomNumber = random(1, 10)
+    document.body.style.backgroundImage = `url(./images/${randomNumber}_background.jpg)`
+  })
+
+  //时钟
+  const padZero = (num) => {
+    return num.toString().padStart(2, '0');
+  }
+  const timer = document.querySelector('.clock');
+  const updateTime = () => {
+    const now = new Date();
+    timer.textContent = `${padZero(now.getHours())}:${padZero(now.getMinutes())}:${padZero(now.getSeconds())}`
+  }
+  updateTime();
+  setInterval(updateTime, 1000)
+</script>
+
+</html>
